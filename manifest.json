@@ -1,0 +1,26 @@
+{
+  "name": "CAFEINOLOGY CODEX - The Codex of Coffee",
+  "short_name": "CAFEINOLOGY CODEX",
+  "description": "珈琲の叡智を綴じた書。全20章・1000項でコーヒーマスターを目指す本格検定ゲーム。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1620",
+  "theme_color": "#0f1620",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "education", "food"]
+}

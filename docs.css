@@ -1,0 +1,237 @@
+/* 法的ページ・説明ページ用スタイル */
+.doc-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  color: var(--text);
+}
+
+.doc-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.doc-back {
+  display: inline-block;
+  color: var(--text-mid);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.doc-back:hover {
+  color: var(--accent-light);
+}
+
+.doc-header h1 {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--accent-light);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.doc-updated {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.doc-container section {
+  margin-bottom: 32px;
+}
+
+.doc-container h2 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--accent-light);
+  margin-bottom: 12px;
+  letter-spacing: 1.5px;
+  padding-left: 12px;
+  border-left: 2px solid var(--accent);
+}
+
+.doc-container p {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.9;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.doc-container ul {
+  margin: 10px 0 10px 24px;
+}
+
+.doc-container li {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.9;
+  margin-bottom: 6px;
+}
+
+.doc-container a {
+  color: var(--accent-light);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent-soft);
+  transition: all 0.2s;
+}
+
+.doc-container a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.doc-container em {
+  color: var(--accent-light);
+  font-style: normal;
+  background: var(--bg-card);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+.doc-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* ========== 追加要素: ゲーム画面のサイドアイテム ========== */
+.ad-slot {
+  margin: 20px 0;
+  min-height: 90px;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-hi);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  overflow: hidden;
+}
+.ad-slot ins {
+  width: 100%;
+  min-height: 90px;
+}
+
+.ad-slot:empty::before {
+  content: 'AD';
+}
+
+/* アフィリエイト */
+.affiliate-box {
+  margin: 22px 0;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-hi));
+  border: 1px solid var(--accent-soft);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.affiliate-label {
+  font-size: 0.7rem;
+  color: var(--accent-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.affiliate-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.affiliate-item {
+  display: block;
+  padding: 10px 14px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.affiliate-item:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hi);
+  transform: translateX(2px);
+  box-shadow: -2px 0 0 var(--accent);
+}
+
+/* シェアボタン */
+.share-buttons {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.share-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.share-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  margin: 0 4px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-hi);
+  border-radius: 20px;
+  color: var(--text-mid);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-light);
+  background: var(--bg-card);
+}
+
+/* フッター */
+.site-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+}
+
+.site-footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+  margin: 0 4px;
+}
+
+.site-footer a:hover {
+  color: var(--accent-light);
+}
+
+.site-footer span {
+  color: var(--border-hi);
+  margin: 0 4px;
+}

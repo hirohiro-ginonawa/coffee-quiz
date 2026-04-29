@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f1620">
+
+  <!-- ========== SEO ========== -->
+  <title>CAFEINOLOGY CODEX（カフェイノロジー・コーデックス）| 珈琲の叡智を綴じた書 · 全20章1000項</title>
+  <meta name="description" content="CAFEINOLOGY CODEX（カフェイノロジー・コーデックス）— 珈琲の叡智を綴じた書。全20章・1000項で学ぶ本格コーヒー検定ゲーム。エスプレッソ、焙煎、抽出、品種、産地、テロワールまで網羅。無料でコーヒーマスターを目指そう。#CafeinologyCodex">
+  <meta name="keywords" content="CAFEINOLOGY CODEX,カフェイノロジーコーデックス,コーヒー,クイズ,検定,バリスタ,エスプレッソ,焙煎,抽出,コーヒーマスター,コーヒーマイスター,スペシャルティコーヒー">
+  <meta name="author" content="CAFEINOLOGY CODEX">
+  <meta name="google-site-verification" content="3ak_mPI5S-jCg_oB2gd7poXh8SMA-_SvyZOicJVe0Y0" />
+  <link rel="canonical" href="https://coffee-codex.netlify.app/">
+
+  <!-- ========== OGP (SNS共有) ========== -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CAFEINOLOGY CODEX - 1000問の珈琲知識大全">
+  <meta property="og:description" content="20レベル・1000問でコーヒーマスターを目指す本格検定ゲーム">
+  <meta property="og:url" content="https://coffee-codex.netlify.app/">
+  <meta property="og:image" content="https://coffee-codex.netlify.app/ogp.png">
+  <meta property="og:site_name" content="CAFEINOLOGY CODEX">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CAFEINOLOGY CODEX - 1000問の珈琲知識大全">
+  <meta name="twitter:description" content="20レベル・1000問でコーヒーマスターを目指す本格検定ゲーム">
+
+  <!-- ========== 構造化データ (SEO) ========== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CAFEINOLOGY CODEX",
+    "alternateName": "カフェイノロジー・コーデックス",
+    "description": "CAFEINOLOGY CODEX - 20レベル・1000問のコーヒー検定クイズゲーム",
+    "applicationCategory": "GameApplication",
+    "genre": "Quiz",
+    "inLanguage": "ja",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+
+  <!-- ========== PWA ========== -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Google AdSense: 審査通過後、下のブロックのコメントを外し ca-pub-XXXX... を実IDに置換 -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+  -->
+
+  <!-- Google Analytics 4: プロパティ作成後、下のブロックのコメントを外し G-XXXXXXXXXX を実IDに置換 -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+
+  <!-- Brand fonts: Cinzel (Roman logo) + Shippori Mincho B1 (JP tagline) + Zen Kaku Gothic Antique (JP body) + Syncopate (accent) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Kaisei+Decol:wght@400;500;700&family=Monomaniac+One&family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Syncopate:wght@400;700&family=Yuji+Syuku&family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+  <!-- スタート画面 -->
+  <div id="screen-start" class="screen active">
+    <div class="start-container">
+      <div class="coffee-icon">☕</div>
+      <h1>CAFEINOLOGY<br>CODEX</h1>
+      <p class="subtitle">The Codex of Coffee</p>
+      <p class="tagline">珈琲の叡智を綴じた書</p>
+      <div class="level-info">
+        <p>全20章・各章50問、総計1000項</p>
+        <p>章を進むごとに難度が上昇</p>
+        <p>40問正解で次章の扉が開かれる</p>
+      </div>
+      <button id="btn-start" class="btn-primary">Open the Codex</button>
+      <button id="btn-continue" class="btn-secondary" style="display:none">続きから</button>
+      <button id="btn-level-select" class="btn-secondary">章を選ぶ</button>
+
+      <!-- AdSense 広告枠 (スタート画面下部) — 審査後に有効化
+      <div class="ad-slot ad-start">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="0000000000"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+      -->
+
+      <footer class="site-footer">
+        <a href="about.html">運営者情報</a>
+        <span>·</span>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <span>·</span>
+        <a href="terms.html">利用規約</a>
+      </footer>
+    </div>
+  </div>
+
+  <!-- レベル選択画面 -->
+  <div id="screen-level-select" class="screen">
+    <div class="level-select-container">
+      <h2>Select a Chapter</h2>
+      <div id="level-grid" class="level-grid"></div>
+      <button id="btn-back-start" class="btn-secondary">戻る</button>
+    </div>
+  </div>
+
+  <!-- ゲーム画面 -->
+  <div id="screen-game" class="screen">
+    <div class="game-header">
+      <button id="btn-game-home" class="btn-game-home" aria-label="ホームへ戻る" title="ホームへ戻る">⌂</button>
+      <div class="level-badge">
+        <span id="current-level-label">CHAPTER I</span>
+        <span id="level-theme"></span>
+      </div>
+      <div class="progress-section">
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <span id="progress-text">0 / 50</span>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-label">正解</span>
+          <span id="correct-count" class="stat-value correct">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">スコア</span>
+          <span id="score-display" class="stat-value score">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">ライフ</span>
+          <span id="lives-display" class="stat-value lives">♥♥♥</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-container">
+      <div id="timer-bar-container" class="timer-bar-container">
+        <div id="timer-bar" class="timer-bar"></div>
+      </div>
+      <div id="question-number" class="question-number">ENTRY 1</div>
+      <div id="question-text" class="question-text"></div>
+      <div id="options-container" class="options-container"></div>
+      <div id="feedback" class="feedback hidden">
+        <div id="feedback-icon"></div>
+        <div id="feedback-text"></div>
+        <div id="feedback-explanation"></div>
+        <button id="btn-next" class="btn-next">次へ →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- レベルクリア画面 -->
+  <div id="screen-level-clear" class="screen">
+    <div class="result-container">
+      <div class="result-icon" id="result-icon">🏆</div>
+      <h2 id="result-title">Chapter Complete</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <span>正解数</span>
+          <span id="result-correct"></span>
+        </div>
+        <div class="result-stat">
+          <span>正解率</span>
+          <span id="result-rate"></span>
+        </div>
+        <div class="result-stat">
+          <span>獲得スコア</span>
+          <span id="result-score"></span>
+        </div>
+      </div>
+      <div id="rank-display" class="rank-display"></div>
+
+      <!-- AdSense インフィード広告 — 審査後に有効化
+      <div class="ad-slot ad-result">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1111111111"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+      -->
+
+      <!-- アフィリエイト: 関連商品レコメンド枠 (レベルごとに JS で差し替え) -->
+      <div class="affiliate-box" id="affiliate-recommend">
+        <div class="affiliate-label">このレベルにおすすめ</div>
+        <div class="affiliate-items" id="affiliate-items">
+          <!-- game.js から動的に生成 -->
+        </div>
+      </div>
+
+      <div class="result-buttons">
+        <button id="btn-next-level" class="btn-primary">次のレベルへ</button>
+        <button id="btn-retry-level" class="btn-secondary">もう一度</button>
+        <button id="btn-home" class="btn-secondary">ホームへ</button>
+      </div>
+
+      <!-- SNSシェアボタン -->
+      <div class="share-buttons">
+        <div class="share-label">結果をシェア</div>
+        <a id="share-twitter" class="share-btn" target="_blank" rel="noopener">𝕏 Twitter</a>
+        <a id="share-line" class="share-btn" target="_blank" rel="noopener">LINE</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全問クリア画面 -->
+  <div id="screen-complete" class="screen">
+    <div class="complete-container">
+      <div class="trophy">🏆</div>
+      <h1>CODEX&nbsp;COMPLETE</h1>
+      <p class="tagline">珈琲の叡智を、あなたは読み解いた</p>
+      <p>CAFEINOLOGY CODEX 全20章・1000項を制覇</p>
+      <div id="final-score-display" class="final-score"></div>
+      <div class="coffee-facts">
+        <h3>あなたはコーヒーの達人です</h3>
+        <p>世界中のコーヒーについての知識を証明しました。</p>
+      </div>
+
+      <!-- AdSense — 審査後に有効化
+      <div class="ad-slot">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="2222222222"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+      -->
+
+      <button id="btn-restart" class="btn-primary">もう一度挑戦</button>
+    </div>
+  </div>
+
+  <!-- ホーム遷移確認モーダル -->
+  <div id="modal-home-confirm" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-home-title">
+    <div class="modal-content">
+      <h3 id="modal-home-title">章を中断しますか？</h3>
+      <p class="modal-sub">現在の進捗を保存して、いつでもこの問題から再開できます。</p>
+      <div id="modal-progress-info" class="modal-progress-info"></div>
+      <div class="modal-buttons">
+        <button id="modal-save-home" class="btn-primary modal-btn-save">💾 保存してホームへ</button>
+        <button id="modal-discard-home" class="btn-secondary modal-btn-discard">進捗を破棄してホームへ</button>
+        <button id="modal-cancel" class="btn-secondary modal-btn-cancel">プレイを続ける</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="affiliates.js"></script>
+  <script src="game.js"></script>
+
+  <!-- Service Worker (PWA / オフライン対応) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(()=>{});
+      });
+    }
+  </script>
+</body>
+</html>
