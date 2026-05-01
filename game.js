@@ -433,6 +433,7 @@ function renderQuestion() {
 
   // フィードバック非表示
   $('feedback').classList.add('hidden');
+  $('btn-next').classList.add('hidden');
 
   // タイマー開始
   startTimer();
@@ -561,6 +562,7 @@ function handleAnswer(btn, correct, shuffled) {
 function showFeedback(correct, q, title) {
   const fb = $('feedback');
   fb.classList.remove('hidden');
+  $('btn-next').classList.remove('hidden');
   $('feedback-icon').textContent = correct ? '✅' : '❌';
   $('feedback-text').textContent = title;
   $('feedback-text').style.color = correct ? '#7dffb0' : '#ff9090';
