@@ -1,5 +1,5 @@
 // Service Worker: オフライン対応 / PWA
-const CACHE_NAME = 'coffee-quiz-v3';
+const CACHE_NAME = 'coffee-quiz-v4';
 const ASSETS = [
   './',
   './index.html',

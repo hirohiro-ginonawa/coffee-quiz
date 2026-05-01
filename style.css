@@ -829,9 +829,23 @@ h1 {
   .stat-label { font-size: 0.55rem; }
   .game-header { padding: 10px 14px; gap: 12px; }
   #current-level-label { font-size: 0.85rem; }
-  .question-container { padding: 22px 16px 30px; }
+  .question-container { padding: 22px 16px 110px; }
   .result-container { padding: 28px 20px; }
   .complete-container h1 { font-size: 1.9rem; letter-spacing: 5px; }
+
+  /* スマホ: 「次へ」ボタンを画面下端に固定し、スクロール不要にする */
+  #feedback:not(.hidden) .btn-next {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    z-index: 50;
+    padding: 14px 44px;
+    box-shadow: 0 8px 24px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.4);
+  }
+  #feedback:not(.hidden) .btn-next:hover {
+    transform: translateX(-50%) translateY(-2px);
+  }
 }
 
 @media (max-width: 360px) {
