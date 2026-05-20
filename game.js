@@ -119,6 +119,11 @@ function clearSession() {
 }
 
 function resumeSession(session) {
+  // 有料章で未解放なら解放モーダル → 復元は中止
+  if (typeof Unlock !== 'undefined' && Unlock.isPaidLevel(session.currentLevel) && !Unlock.isUnlocked()) {
+    openUnlockModal();
+    return;
+  }
   state.currentLevel = session.currentLevel;
   state.currentQuestionIndex = session.currentQuestionIndex;
   state.questions = session.questions;
@@ -162,6 +167,15 @@ function init() {
     state.currentLevel = 1;
     startLevel(1);
   });
+
+  // 「🔑 解放コードをお持ちの方」リンク
+  const haveCodeLink = $('link-have-code');
+  if (haveCodeLink) {
+    haveCodeLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      openUnlockModal();
+    });
+  }
 
   $('btn-continue').addEventListener('click', () => {
     const session = loadSession();
@@ -224,10 +238,48 @@ function init() {
     if (e.target.id === 'modal-home-confirm') closeHomeConfirm();
   });
 
-  // ESCキーでモーダルを閉じる
+  // 解放コードモーダル
+  $('modal-unlock-cancel').addEventListener('click', closeUnlockModal);
+  $('modal-unlock-submit').addEventListener('click', handleUnlockSubmit);
+  $('modal-unlock').addEventListener('click', (e) => {
+    if (e.target.id === 'modal-unlock') closeUnlockModal();
+  });
+
+  // BOOTH購入リンクの設定 (準備中の場合は無効化)
+  const boothLink = $('modal-unlock-booth');
+  if (typeof Unlock !== 'undefined' && Unlock.BOOTH_URL && Unlock.BOOTH_URL !== '#') {
+    boothLink.href = Unlock.BOOTH_URL;
+  } else {
+    boothLink.classList.add('coming-soon');
+    boothLink.textContent = 'BOOTH商品ページ準備中';
+    boothLink.addEventListener('click', (e) => e.preventDefault());
+  }
+
+  // 入力欄: 整形 + Enterで送信
+  const unlockInput = $('unlock-code-input');
+  unlockInput.addEventListener('input', () => {
+    if (typeof Unlock === 'undefined') return;
+    const formatted = Unlock.formatForDisplay(unlockInput.value);
+    if (formatted !== unlockInput.value) {
+      unlockInput.value = formatted;
+    }
+    // 入力時にエラーを消す
+    $('unlock-error').classList.add('hidden');
+  });
+  unlockInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleUnlockSubmit();
+    }
+  });
+
+  // ESCキーで開いてるモーダルを閉じる
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !$('modal-home-confirm').classList.contains('hidden')) {
+    if (e.key !== 'Escape') return;
+    if (!$('modal-home-confirm').classList.contains('hidden')) {
       closeHomeConfirm();
+    } else if (!$('modal-unlock').classList.contains('hidden')) {
+      closeUnlockModal();
     }
   });
 
@@ -317,6 +369,70 @@ function handleDiscardAndHome() {
   showScreen('screen-start');
 }
 
+// ============ 解放コード入力モーダル ============
+function openUnlockModal() {
+  $('unlock-code-input').value = '';
+  $('unlock-error').classList.add('hidden');
+  $('modal-unlock').classList.remove('hidden');
+  // モバイルでのキーボード即起動を避けるため少し遅延してフォーカス
+  setTimeout(() => {
+    const inp = $('unlock-code-input');
+    if (inp) inp.focus();
+  }, 120);
+}
+
+function closeUnlockModal() {
+  $('modal-unlock').classList.add('hidden');
+}
+
+function showUnlockError(msg) {
+  const err = $('unlock-error');
+  err.textContent = msg;
+  err.classList.remove('hidden');
+}
+
+async function handleUnlockSubmit() {
+  if (typeof Unlock === 'undefined') return;
+
+  const raw = $('unlock-code-input').value.trim();
+  if (!raw) {
+    showUnlockError('コードを入力してください。');
+    return;
+  }
+
+  const btn = $('modal-unlock-submit');
+  const originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = '検証中...';
+
+  try {
+    const ok = await Unlock.applyCode(raw);
+    if (ok) {
+      // 成功 → モーダルを閉じてレベル選択を再描画
+      closeUnlockModal();
+      if ($('screen-level-select') && $('screen-level-select').classList.contains('active')) {
+        renderLevelSelect();
+      }
+      // GAイベント
+      if (typeof gtag === 'function') {
+        gtag('event', 'unlock_success', { method: 'code' });
+      }
+      // 成功通知
+      alert('🎉 全章が解放されました!\nCAFEINOLOGY CODEX の続きをお楽しみください。');
+    } else {
+      showUnlockError('コードが正しくありません。\n形式と入力内容をご確認ください。');
+      if (typeof gtag === 'function') {
+        gtag('event', 'unlock_fail');
+      }
+    }
+  } catch (e) {
+    showUnlockError('検証に失敗しました。再度お試しください。');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+}
+
 // ============ レベル選択画面 ============
 function renderLevelSelect() {
   const grid = $('level-grid');
@@ -324,6 +440,7 @@ function renderLevelSelect() {
   const highestUnlocked = Math.max(1, ...Object.keys(progress.clearedLevels).map(Number).concat([0]).map(n => n + 1));
   const session = loadSession();
   const inProgressLevel = session ? session.currentLevel : null;
+  const paidUnlocked = (typeof Unlock !== 'undefined') ? Unlock.isUnlocked() : true;
 
   for (let i = 1; i <= TOTAL_LEVELS; i++) {
     const btn = document.createElement('button');
@@ -331,39 +448,47 @@ function renderLevelSelect() {
     const cleared = progress.clearedLevels[i];
     const unlocked = i <= highestUnlocked;
     const isInProgress = (i === inProgressLevel);
+    const isPaidLocked = (typeof Unlock !== 'undefined') && Unlock.isPaidLevel(i) && !paidUnlocked;
 
     const roman = toRoman(i);
 
-    if (isInProgress) {
+    if (isPaidLocked) {
+      // 有料章で未解放: 💎 表示。タップで解放コード入力モーダルへ
+      btn.classList.add('paid-locked');
+      btn.innerHTML = `<span class="lv-chapter">Chapter</span><span class="lv-num">${roman}</span><span class="lv-stars">💎</span>`;
+      btn.addEventListener('click', () => openUnlockModal());
+    } else if (isInProgress) {
       // 進行中のチャプター（最優先表示）
       btn.classList.add('unlocked', 'in-progress');
       const cur = session.currentQuestionIndex + 1;
       const tot = session.questions.length;
       btn.innerHTML = `<span class="lv-chapter">Chapter</span><span class="lv-num">${roman}</span><span class="lv-stars">${cur} / ${tot}</span>`;
+      btn.addEventListener('click', () => resumeSession(session));
     } else if (cleared) {
       btn.classList.add('cleared', 'unlocked');
       const stars = cleared.rate >= 0.96 ? '★★★' : cleared.rate >= 0.88 ? '★★' : '★';
       btn.innerHTML = `<span class="lv-chapter">Chapter</span><span class="lv-num">${roman}</span><span class="lv-stars">${stars}</span>`;
+      btn.addEventListener('click', () => startLevel(i));
     } else if (unlocked) {
       btn.classList.add('unlocked');
       btn.innerHTML = `<span class="lv-chapter">Chapter</span><span class="lv-num">${roman}</span><span class="lv-stars">挑戦可</span>`;
+      btn.addEventListener('click', () => startLevel(i));
     } else {
       btn.classList.add('locked');
       btn.innerHTML = `<span class="lv-chapter">Chapter</span><span class="lv-num">${roman}</span><span class="lv-stars">🔒</span>`;
     }
 
-    if (isInProgress) {
-      // 進行中チャプターをクリック → セッション復元
-      btn.addEventListener('click', () => resumeSession(session));
-    } else if (unlocked) {
-      btn.addEventListener('click', () => startLevel(i));
-    }
     grid.appendChild(btn);
   }
 }
 
 // ============ レベル開始 ============
 function startLevel(level) {
+  // 有料章で未解放なら解放モーダル
+  if (typeof Unlock !== 'undefined' && Unlock.isPaidLevel(level) && !Unlock.isUnlocked()) {
+    openUnlockModal();
+    return;
+  }
   // 新規開始 → 既存セッションは破棄
   clearSession();
 

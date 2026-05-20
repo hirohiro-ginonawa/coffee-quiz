@@ -321,6 +321,31 @@ h1 {
   color: var(--text-dim);
 }
 
+/* 有料(購入待ち)レベル: 金箔でタップ可能、💎アイコン */
+.level-btn.paid-locked {
+  color: var(--gold);
+  border-color: rgba(212, 194, 138, 0.28);
+  background: linear-gradient(135deg, var(--bg-card), rgba(212, 194, 138, 0.04));
+  cursor: pointer;
+  position: relative;
+}
+.level-btn.paid-locked:hover {
+  background: linear-gradient(135deg, var(--bg-card-hi), rgba(212, 194, 138, 0.10));
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(212, 194, 138, 0.18);
+}
+.level-btn.paid-locked .lv-chapter {
+  color: rgba(212, 194, 138, 0.55);
+}
+.level-btn.paid-locked .lv-num {
+  color: rgba(212, 194, 138, 0.55);
+}
+.level-btn.paid-locked .lv-stars {
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
 /* ========== ゲーム画面 ========== */
 #screen-game {
   padding: 0;
@@ -1068,4 +1093,148 @@ h1 {
   margin-top: 2px;
   font-weight: 400;
   font-family: var(--font-logo);
+}
+
+/* ==========================================================
+ * スタート画面: 解放コード入力リンク (小)
+ * ========================================================== */
+.have-code-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  font-family: var(--font-jp-body);
+  padding: 6px 10px;
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.have-code-link:hover {
+  color: var(--gold);
+  background: rgba(212, 194, 138, 0.06);
+}
+
+/* ==========================================================
+ * 解放コード入力モーダル
+ * ========================================================== */
+.modal-unlock-content {
+  text-align: center;
+}
+
+.unlock-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 18px rgba(212, 194, 138, 0.45));
+  animation: gemFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes gemFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+.modal-unlock-content h3 {
+  font-family: var(--font-logo);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  margin-bottom: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.modal-unlock-content .modal-sub {
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1.7;
+}
+
+.unlock-input-wrap {
+  margin: 18px 0 6px;
+  text-align: left;
+}
+
+.unlock-label {
+  display: block;
+  font-size: 0.66rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: var(--font-accent-en);
+}
+
+.unlock-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  padding: 13px 14px;
+  color: var(--accent-light);
+  font-family: var(--font-logo);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.unlock-input::placeholder {
+  color: var(--text-dim);
+  letter-spacing: 2.5px;
+  font-weight: 400;
+  opacity: 0.55;
+}
+.unlock-input:focus {
+  border-color: var(--gold);
+  background: rgba(212, 194, 138, 0.05);
+  box-shadow: 0 0 0 3px rgba(212, 194, 138, 0.12);
+}
+
+.unlock-error {
+  margin-top: 10px;
+  color: var(--red);
+  font-size: 0.78rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+  padding: 8px 12px;
+  background: rgba(209, 139, 146, 0.08);
+  border: 1px solid rgba(209, 139, 146, 0.25);
+  border-radius: 6px;
+}
+.unlock-error.hidden {
+  display: none;
+}
+
+.unlock-booth-link {
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-family: var(--font-jp-body);
+  letter-spacing: 1.5px;
+  color: var(--gold) !important;
+  border-color: rgba(212, 194, 138, 0.35) !important;
+}
+.unlock-booth-link:hover {
+  background: rgba(212, 194, 138, 0.08) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+}
+.unlock-booth-link.coming-soon {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+.unlock-note {
+  margin-top: 18px;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  text-align: center;
 }

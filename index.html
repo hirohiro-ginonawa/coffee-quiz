@@ -90,6 +90,9 @@
       <button id="btn-continue" class="btn-secondary" style="display:none">続きから</button>
       <button id="btn-level-select" class="btn-secondary">章を選ぶ</button>
 
+      <!-- 解放コード入力 (有料章を解放するための導線) -->
+      <a id="link-have-code" class="have-code-link" href="#">🔑 解放コードをお持ちの方</a>
+
       <!-- AdSense 広告枠 (スタート画面下部) — 審査後に有効化
       <div class="ad-slot ad-start">
         <ins class="adsbygoogle"
@@ -252,6 +255,49 @@
     </div>
   </div>
 
+  <!-- 解放コード入力モーダル -->
+  <div id="modal-unlock" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-unlock-title">
+    <div class="modal-content modal-unlock-content">
+      <div class="unlock-icon">💎</div>
+      <h3 id="modal-unlock-title">全章を解放する</h3>
+      <p class="modal-sub">
+        第5章以降（800項）を読み解くには、<br>
+        解放コードが必要です。
+      </p>
+
+      <div class="unlock-input-wrap">
+        <label for="unlock-code-input" class="unlock-label">解放コード</label>
+        <input
+          id="unlock-code-input"
+          class="unlock-input"
+          type="text"
+          inputmode="latin"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          placeholder="CCDX-XXXX-XXXX-XXXX"
+          maxlength="19"
+        >
+        <div id="unlock-error" class="unlock-error hidden"></div>
+      </div>
+
+      <div class="modal-buttons">
+        <button id="modal-unlock-submit" class="btn-primary">コードを適用する</button>
+        <a id="modal-unlock-booth"
+           class="btn-secondary unlock-booth-link"
+           href="#"
+           target="_blank"
+           rel="noopener">BOOTHで購入（¥780）→</a>
+        <button id="modal-unlock-cancel" class="btn-secondary modal-btn-cancel">閉じる</button>
+      </div>
+
+      <p class="unlock-note">
+        購入後すぐに自動でコードが受け取れます。<br>
+        コードは1端末でご利用ください。
+      </p>
+    </div>
+  </div>
+
   <!-- ホーム遷移確認モーダル -->
   <div id="modal-home-confirm" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-home-title">
     <div class="modal-content">
@@ -268,6 +314,7 @@
 
   <script src="questions.js"></script>
   <script src="affiliates.js"></script>
+  <script src="unlock.js"></script>
   <script src="game.js"></script>
 
   <!-- Service Worker (PWA / オフライン対応) -->

@@ -23,7 +23,9 @@
 | `docs.css` | 法的ページ・広告・アフィリエイト・シェア等のスタイル |
 | `questions.js` | 1000問のクイズデータ（20レベル×50問） |
 | `game.js` | ゲームロジック、進捗保存、アフィリエイト表示、シェア生成 |
+| `unlock.js` | 解放コード検証（HMAC-SHA256） |
 | `affiliates.js` | Amazon等のアフィリエイト商品データ |
+| `tools/generate_codes.py` | 解放コード生成スクリプト（出品者用） |
 | `about.html` | 運営者情報（AdSense申請で必須） |
 | `privacy.html` | プライバシーポリシー（AdSense申請で必須） |
 | `terms.html` | 利用規約 |
@@ -113,6 +115,37 @@ https://cafeinology-codex.netlify.app/ → 実URL
 - **Amazonアソシエイト**: https://affiliate.amazon.co.jp/ （売上発生 180日以内で承認）
 - **もしもアフィリエイト**: https://af.moshimo.com/ （Amazon/楽天をまとめて申請可）
 - **楽天アフィリエイト**: https://affiliate.rakuten.co.jp/ （即時承認）
+
+### 全章解放コード（BOOTH）
+- 無料: Chapter 1〜4（200問）
+- 有料: Chapter 5〜20（800問）= **¥780 / 全章解放コード**
+- コード形式: `CCDX-XXXX-XXXX-XXXX`（HMAC-SHA256 + Crockford Base32）
+
+**1. 秘密鍵の管理**
+`unlock.js` と `tools/generate_codes.py` の `SECRET_HEX` は完全一致させること。
+秘密鍵が漏れたら新鍵で再生成 → 旧コードは全失効。
+
+**2. コードの大量生成**
+```bash
+# 100個生成 → ファイルに保存
+python3 tools/generate_codes.py 100 --out codes.txt
+
+# 生成と同時にセルフ検証
+python3 tools/generate_codes.py 10 --verify
+```
+
+**3. BOOTH 出品**
+1. https://booth.pm/ja でアカウント作成
+2. 「商品を出品」→ デジタル商品 → `codes.txt` をテキスト/ZIPでアップロード
+3. 「商品の自動配送」を有効化（1コード=1購入で自動配布）
+4. 商品名: `CAFEINOLOGY CODEX — 全章解放コード`、価格: ¥780
+5. 出品URLが確定したら `unlock.js` の `BOOTH_URL` を実URLに差し替え
+
+**4. コードの仕組み（軽量DRM）**
+- 検証はブラウザのみで完結（サーバー不要）
+- localStorage に `cafeinology_unlocked_v1=1` が立つと有料章へアクセス可
+- 端末をまたいだ移行はコードを再入力するだけ
+- 完全なコピー防止ではなく「ちゃんとしたユーザーは購入する」程度の抑制
 
 ---
 
