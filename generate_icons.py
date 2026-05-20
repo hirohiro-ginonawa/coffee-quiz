@@ -208,7 +208,7 @@ def make_ogp():
         sub_font = load_font(SERIF, 24)
     except Exception:
         sub_font = load_font(SERIF_BOLD, 24)
-    draw.text((rx, 460), "The Codex of Coffee",
+    draw.text((rx, 460), "1000 Entries of Coffee Wisdom",
               font=sub_font, fill=(155, 169, 184))
 
     # 下部メタ情報

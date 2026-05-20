@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /sw.js
 
-Sitemap: https://coffee-codex.netlify.app/sitemap.xml
+Sitemap: https://cafeinology-codex.netlify.app/sitemap.xml

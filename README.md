@@ -1,6 +1,6 @@
 # CAFEINOLOGY CODEX — カフェイノロジー・コーデックス
 
-> _The Codex of Coffee — 珈琲の叡智を綴じた書_
+> _1000 Entries of Coffee Wisdom — 珈琲の叡智を綴じた書_
 > 全20章 · 1000項 · #CafeinologyCodex
 
 **ブランドコンセプト**
@@ -48,7 +48,7 @@
 ca-pub-XXXXXXXXXXXXXXXX  → AdSenseパブリッシャーID
 G-XXXXXXXXXX             → GA4測定ID
 data-ad-slot="0000000000"→ AdSenseで発行した各広告スロットID
-https://coffee-codex.example.com/ → 実際の公開URL
+https://cafeinology-codex.netlify.app/ → 実際の公開URL
 ```
 
 ### about.html
@@ -65,7 +65,7 @@ ASIN                 → 実在する商品のASIN
 
 ### robots.txt / sitemap.xml
 ```
-https://coffee-codex.example.com/ → 実URL
+https://cafeinology-codex.netlify.app/ → 実URL
 ```
 
 ---
