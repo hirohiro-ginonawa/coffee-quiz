@@ -445,14 +445,10 @@ function renderLevelSelect() {
   const inProgressLevel = session ? session.currentLevel : null;
   const paidUnlocked = (typeof Unlock !== 'undefined') ? Unlock.isUnlocked() : true;
 
-  // 全章解放CTA: 有料章がある & 未解放のときだけ表示
-  // ★ 現在 FREE_LEVELS = TOTAL_LEVELS のため hasPaidLevels は常に false
-  //   → CTA は非表示。将来 paywall を復活させたい場合は FREE_LEVELS を下げれば自動復活する。
+  // 全章解放CTA: 未解放のときだけ表示
   const cta = $('btn-unlock-cta');
   if (cta) {
-    const hasPaidLevels = (typeof Unlock !== 'undefined')
-      && (Unlock.FREE_LEVELS < TOTAL_LEVELS);
-    if (hasPaidLevels && !paidUnlocked) {
+    if (!paidUnlocked) {
       cta.classList.remove('hidden');
     } else {
       cta.classList.add('hidden');

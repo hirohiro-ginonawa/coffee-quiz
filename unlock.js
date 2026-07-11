@@ -8,22 +8,17 @@
 //   8文字 = ランダムID (40bit, Crockford Base32)
 //   4文字 = HMAC-SHA256 タグ (20bit, Crockford Base32)
 //
-// 【方針転換 2026-07】
-// 全20章を無料化。paywall は撤去し、AdSense/アフィリエイト路線に。
-// BOOTH 商品ページは「サポート＆特典付き」として維持。
-// 既存 BOOTH 購入者のため、解放コード入力導線と検証ロジックは残置。
-// 将来的に「特典解放」など別用途に転用する可能性あり。
+// 無料: Chapter 1-4 (200問)
+// 有料: Chapter 5-20 (800問) → ¥780 / BOOTH
 
 const Unlock = (() => {
   // ⚠️ tools/generate_codes.py の SECRET_HEX と完全一致させること
   const SECRET_HEX = 'cbf5f387e8716576a50e3ceef8c66080';
 
-  // ★ FREE_LEVELS を TOTAL_LEVELS (20) に設定 → 全章無料
-  //   isPaidLevel() が常に false を返し、章に paywall がかからない
-  const FREE_LEVELS  = 20;
+  const FREE_LEVELS  = 4;
   const UNLOCK_KEY   = 'cafeinology_unlocked_v1';
   const BOOTH_URL    = 'https://cafeinology.booth.pm/items/8603920';
-  const PRODUCT_NAME = 'CAFEINOLOGY CODEX — サポータープラン';
+  const PRODUCT_NAME = 'CAFEINOLOGY CODEX — 全章解放コード';
   const PRICE_JPY    = 780;
 
   // Crockford Base32 (I, L, O, U を除く)
