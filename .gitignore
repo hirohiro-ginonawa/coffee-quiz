@@ -11,3 +11,9 @@ dist/
 .vercel/
 *.bak
 *.bak.*
+
+# 解放コード生成物 (絶対にコミットしない)
+codes.txt
+codes-*.txt
+codes/
+*.codes.txt
