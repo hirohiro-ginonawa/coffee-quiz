@@ -191,6 +191,9 @@ function init() {
     showScreen('screen-level-select');
   });
 
+  // 章選択画面の「全章を解放する」CTA
+  $('btn-unlock-cta').addEventListener('click', () => openUnlockModal());
+
   $('btn-back-start').addEventListener('click', () => {
     updateContinueButton();
     showScreen('screen-start');
@@ -441,6 +444,16 @@ function renderLevelSelect() {
   const session = loadSession();
   const inProgressLevel = session ? session.currentLevel : null;
   const paidUnlocked = (typeof Unlock !== 'undefined') ? Unlock.isUnlocked() : true;
+
+  // 全章解放CTA: 未解放のときだけ表示
+  const cta = $('btn-unlock-cta');
+  if (cta) {
+    if (!paidUnlocked) {
+      cta.classList.remove('hidden');
+    } else {
+      cta.classList.add('hidden');
+    }
+  }
 
   for (let i = 1; i <= TOTAL_LEVELS; i++) {
     const btn = document.createElement('button');
