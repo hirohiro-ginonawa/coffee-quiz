@@ -17,7 +17,7 @@ const Unlock = (() => {
 
   const FREE_LEVELS  = 4;
   const UNLOCK_KEY   = 'cafeinology_unlocked_v1';
-  const BOOTH_URL    = '#'; // BOOTH 商品URLが決まったら差し替え
+  const BOOTH_URL    = 'https://cafeinology.booth.pm/items/8603920';
   const PRODUCT_NAME = 'CAFEINOLOGY CODEX — 全章解放コード';
   const PRICE_JPY    = 780;
 
